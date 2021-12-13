@@ -28,6 +28,7 @@ def get_contours(img, original_img, gray_img):
     # print(cx, cy, cw, ch)
     # cv2.drawContours(original_img, contours[container], -1, (0, 0, 255), 2)
     box_size = cw / 9
+    cv2.drawContours(original_img, contours[container], -1, (0, 255, 0), 2)
 
     big_squares_area = container_area/100
     small_squares_area = container_area/10  
@@ -71,6 +72,8 @@ def get_contours(img, original_img, gray_img):
                 # cv2.imshow("Sudoku", img_copy)
                 # cv2.waitKey(0)
                 # cv2.destroyAllWindows()
+
+
 
 
 def process_image():
