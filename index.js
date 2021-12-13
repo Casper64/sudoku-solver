@@ -102,13 +102,13 @@ const upload = multer().single("image")
 app.post("/script", (req, res) => {
     upload(req, res, async (error) => {
         const image = await sharp(req.file.buffer)
-            .jpeg({
-                quality: 40
-            })
-            .toFile("./images/image.jpeg")
+            // .jpeg({
+            //     quality: 40
+            // })
+            .toFile("./images/"+req.file.originalname)
             .catch( err => { console.log('error: ', err) })
 
-        pythonScanner("./images/image.jpeg");
+        pythonScanner("./images/"+req.file.originalname);
     })
 });
 

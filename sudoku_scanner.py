@@ -72,6 +72,57 @@ def get_contours(img, original_img, gray_img):
                 # cv2.destroyAllWindows()
                 put_into_grid(row, col, result)
 
+def grid_splitted(img, original_img, gray_img):
+    (_, black_white) = cv2.threshold(gray_img, 127, 255, cv2.THRESH_BINARY)
+    (w, h) = img.shape
+    box_size = int(max(w, h) / 9)
+    small_area = pow(box_size, 2) / 3
+    big_area = pow(box_size*3, 2) 
+
+    contours, hierarchy = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    # for cnt in contours:
+    #     area = get_area(cnt)
+    #     if area > small_area and area < big_area:
+    #         (x, y, w, h) = cv2.boundingRect(cnt)
+    #         if min(w,h)/max(w,h) < 0.9:
+    #             continue
+    #         cv2.rectangle(original_img, (x, y), (x+box_size, y+box_size), (0,255,0), 1)
+
+    #         # img_copy = ResizeWithAspectRatio(original_img, height=720)
+    #         # cv2.imshow("Sudoku", img_copy)
+    #         # cv2.waitKey(0)
+    #         # cv2.destroyAllWindows()
+    # return
+
+    index = 0
+    for cnt in contours:
+        print(f"{index} / {len(contours)}")
+        index += 1
+
+        area = get_area(cnt)
+        if area > small_area and area < big_area:
+            (x, y, w, h) = cv2.boundingRect(cnt)
+            if min(w,h)/max(w,h) < 0.9:
+                continue
+
+            cropped = black_white[y:y+box_size, x:x+box_size]
+
+            # Extract the number out of the current square if there is one
+            data = pytesseract.image_to_string(cropped, config="--psm 6 --psm 13") 
+
+            # img_copy = ResizeWithAspectRatio(original_img, height=720)
+            # cv2.imshow("Sudoku", img_copy)
+            # cv2.waitKey(0)
+            # cv2.destroyAllWindows()
+            if result := re.findall(r'\d', data):
+                cv2.rectangle(original_img, (x, y), (x+box_size, y+box_size), (0,255,0), 1)
+                x += box_size/2
+                y += box_size/2
+                row = int(y // box_size)
+                col = int(x // box_size)
+                put_into_grid(row, col, result)
+
+                
 
 
 def process_image():
@@ -87,8 +138,10 @@ def process_image():
     img_canny = cv2.Canny(img_blur, 50, 50)
     img_copy = img.copy()
 
-    get_contours(img_canny, img_copy, img_blur)
-    # img_copy = ResizeWithAspectRatio(img_copy, height=720)
+    grid_splitted(img_canny, img_copy, img_blur)
+
+    # get_contours(img_canny, img_copy, img_blur)
+    img_copy = ResizeWithAspectRatio(img_copy, height=720)
 
     # cv2.imshow("Sudoku", img_copy)
     # cv2.waitKey(0)
