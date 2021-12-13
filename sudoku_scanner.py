@@ -80,7 +80,7 @@ def process_image():
         print("Input image!")
         sys.exit(1)
 
-    img = cv2.imread("./files/IMG-1258.jpg")
+    img = cv2.imread(path)
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_blur = cv2.GaussianBlur(img_gray, (5, 5), 3)
     img_canny = cv2.Canny(img_blur, 50, 50)
