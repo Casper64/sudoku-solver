@@ -26,6 +26,12 @@ const pythonScanner = (img) => {
     shell.on('message', function(message){
         sendEventsToAll(message)
     })
+    shell.on('error', (message) => {
+        console.error(message)
+    })
+    shell.on('pythonError', (message) => {
+        console.error(message)
+    })
 };
 
 const pythonGenerator = () => {
@@ -36,6 +42,12 @@ const pythonGenerator = () => {
     shell.on('message', function(message){
         console.log(message)
         sendEventsToAll(message)
+    })
+    shell.on('error', (message) => {
+        console.error(message)
+    })
+    shell.on('pythonError', (message) => {
+        console.error(message)
     })
 };
 
@@ -48,10 +60,10 @@ const pythonSolver = (grid) => {
         sendEventsToAll(message)
     })
     shell.on('error', (message) => {
-        sendEventsToAll(message)
+        console.error(message)
     })
     shell.on('pythonError', (message) => {
-        sendEventsToAll(message)
+        console.error(message)
     })
 }
 
