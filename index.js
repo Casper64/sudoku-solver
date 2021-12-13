@@ -103,7 +103,7 @@ app.post("/script", (req, res) => {
     upload(req, res, async (error) => {
         const image = await sharp(req.file.buffer)
             .jpeg({
-                quality: 100
+                quality: 40
             })
             .toFile("./images/image.jpeg")
             .catch( err => { console.log('error: ', err) })
