@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
+
+    <title>Sudoku Solver</title>
+
+    <link href="./notes.css" rel="stylesheet">
+    <link href="./main.css" rel="stylesheet">
+    <script src="./main.js"></script>
+</head>
+<body onload="load()">
+
+<h1>Sudoku solver</h1>
+<p>Upload an image containing only the big rectangle and the numbers. Correct any mistakes and hit solve!</p>
+
+<div class="buttons-container">
+    <!-- <form id="upload" action="/scripts", method="POST" encType="multipart/form-data"> -->
+        <input id="img-upload" name="image" type="file" accept="image/*" />
+    <!-- </form> -->
+    <button class="btn" onclick="solve()">Solve</button>
+    <button class="btn" onclick="generate()">Generate</button>
+    <button class="btn" onclick="clearGrid()">Clear</button>
+</div>
+
+<div class="grid" id="grid">
+    
+</div>
+<h2 class="invalid-text" id="error-text">Invalid Sudoku!</h2>
+<h2 class="success-text" id="success-text">Sudoku Solved!</h2>
+
+<div class="popup" id="popup">
+    <h2 class="flickering-text">Recognizing digits</h2>
+    <div class="bar-container">
+        <div class="bar" id="progress"></div>
+    </div>
+</div>
+<div class="backdrop" id="backdrop"></div>
+
+<footer>
+&copy; Casper Kuethe 2021
+</footer>
+    
+</body>
+</html>
