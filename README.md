@@ -1,3 +1,3 @@
 # sudoku-solver
 
-Simple website for solving a sudoku from a picture or generating one
+Simple web page where you can upload a sudoku from a picture and the computer sovles it.
